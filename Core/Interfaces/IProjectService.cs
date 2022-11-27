@@ -1,4 +1,5 @@
 ﻿using Core.Entities;
+using Core.Wrapper;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -6,10 +7,10 @@ namespace Core.Interfaces
 {
     public interface IProjectService
     {
-        Task<Project> CreateAsync(string name, string description);
+        Task<IResult<Project>> CreateAsync(string name, string description);
 
-        Task<Project> GetByIdAsync(int id);
+        Task<IResult<Project>> GetByIdAsync(int id);
 
-        Task<IReadOnlyList<Project>> GetAllAsync();
+        Task<IResult<IReadOnlyList<Project>>> GetAllAsync();
     }
 }

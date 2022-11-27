@@ -1,5 +1,6 @@
 ﻿using Core.Entities;
 using Core.Interfaces;
+using Core.Wrapper;
 using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -17,22 +18,27 @@ namespace Infrastructure.Services
             _context = context;
         }
 
-        public async Task<Project> CreateAsync(string name, string description)
+        public async Task<IResult<Project>> CreateAsync(string name, string description)
         {
             var project = new Project(name, description);
             _context.Projects.Add(project);
             await _context.SaveChangesAsync();
-            return project;
+
+            return await Result<Project>.SuccessAsync(project);
         }
 
-        public async Task<IReadOnlyList<Project>> GetAllAsync()
+        public async Task<IResult<IReadOnlyList<Project>>> GetAllAsync()
         {
-            return await _context.Projects.ToListAsync();
+            var projects = await _context.Projects.ToListAsync();
+
+            return await Result<IReadOnlyList<Project>>.SuccessAsync(projects);
         }
 
-        public async Task<Project> GetByIdAsync(int id)
+        public async Task<IResult<Project>> GetByIdAsync(int id)
         {
-            return await _context.Projects.FindAsync(id);
+            var project = await _context.Projects.FindAsync(id);
+
+            return await Result<Project>.SuccessAsync(project);
         }
     }
 }
