@@ -1,5 +1,6 @@
 ﻿using Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
 
 namespace Multitenant.Api.Controllers
@@ -16,7 +17,7 @@ namespace Multitenant.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAsync(int id)
+        public async Task<IActionResult> GetAsync(Guid id)
         {
             var projectDetails = await _service.GetByIdAsync(id);
             return Ok(projectDetails);

@@ -34,7 +34,7 @@ namespace Infrastructure.Services
             return await Result<IReadOnlyList<Project>>.SuccessAsync(projects);
         }
 
-        public async Task<IResult<Project>> GetByIdAsync(int id)
+        public async Task<IResult<Project>> GetByIdAsync(Guid id)
         {
             var project = await _context.Projects.FindAsync(id);
 
